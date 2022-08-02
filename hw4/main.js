@@ -142,6 +142,7 @@ for (let i = 0; i < 10; i++){
 console.log(ver)*/
 
 //
+/*
 // 15*) нарисовать матрицу (таблица умножения)
 // 0: (10) [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 // 1: (10) [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
@@ -154,9 +155,28 @@ console.log(ver)*/
 // 8: (10) [9, 18, 27, 36, 45, 54, 63, 72, 81, 90]
 // 9: (10) [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
-
+let ver = [];
+for (let i = 1; i <= 10 ; i++){
+    let hor = [];
+    for (let j = 1 ; j <= 10; j++){
+        hor.push(i * j)
+    }
+    ver.push(hor)
+}
+console.log(ver)
+*/
 
 
 // 16*)	Написать программу которая будет склонять слово
 // 	“товар” в зависимости от количества товаров в корзине.
 //     Например 1 - товар, 4 - товара, 6 - товаров.
+
+let getNumber = +prompt('number');
+let setNumber = getNumber % 100;
+if (setNumber >=5 && setNumber <= 20){
+    alert(`вы купили ${getNumber} товаров`)
+}else if (setNumber > 1 && setNumber < 5){
+    alert(`вы купили ${getNumber} товарa`)
+}else if (setNumber === 1){
+    alert(`вы купили ${getNumber} товар`)
+}else (alert(`вы купили ${getNumber} товаров`))
