@@ -177,6 +177,8 @@ if (setNumber >=5 && setNumber <= 20){
     alert(`вы купили ${getNumber} товаров`)
 }else if (setNumber > 1 && setNumber < 5){
     alert(`вы купили ${getNumber} товарa`)
-}else if (setNumber === 1){
+}else if (setNumber % 10 === 1 ){
     alert(`вы купили ${getNumber} товар`)
 }else (alert(`вы купили ${getNumber} товаров`))
+
+
