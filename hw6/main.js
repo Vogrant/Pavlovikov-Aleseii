@@ -6,20 +6,20 @@
 //     Обязательные методы: приветствие('Привет, меня зовут ИМЯ_ЧЕЛОВЕКА'), возможность смены имени, изменить инвалидность, получить все данные о человеке.
 
 class AbstractHuman {
-    constructor(height, weight, name, dOB, gender, isDisabledPerson) {
+    constructor(height, weight, name, dOB, gender, isDisabledPerson = false) {
         this.height = height;
         this.weight = weight;
         this.name = name;
         this.dOB = dOB;
         this.gender = gender;
-        this.isDisabledPerson = false;
+        this.isDisabledPerson = isDisabledPerson;
     }
 
-     meetByName(){
+    meetByName(){
     return `Привет, меня зовут ${this.name}`
     }
 
-    setNewName(name){
+    set setNewName(name){
         this.name = name;
     }
 
@@ -40,17 +40,65 @@ class AbstractHuman {
 
 }
 
-const qwe = new AbstractHuman(180, 80, 'Kol9', '14.10.2002', 'male', false)
-
-console.log(qwe.grtInfo)
-
 // 1.2) Создать два класса(которые должны зависеть от абстракции):
 // - Фронтенд разработчик
 // - Строитель
 
 class FrontEndDevoloper extends AbstractHuman{
-     constructor() {
-         super();
+     constructor(startCarrier = new Date(), previousCompany = [], height, weight, name, dOB, gender, isDisabledPerson = false) {
+         super(height, weight, name, dOB, gender, isDisabledPerson = false);
+         this.startCarrier = startCarrier;
+         this.previousCompany = previousCompany;
+
+         this.previousCompany = [
+             {
+                 start: new Date('01-21-2021'),
+                 end: new Date('03-23-2022'),
+                 salaryPerMonth: 100,
+                 position: 'middle',
+                 companyName: 'Oracle',
+             },
+             {
+                 start: new Date('01-04-2022'),
+                 end: new Date('06-30-2022'),
+                 salaryPerMonth: 200,
+                 position: 'middle',
+                 companyName: 'freelance',
+             }
+         ]
+     }
+
+
+     meetByName() {
+         return super.meetByName() + `, я Фронтенд разработчик. Работаю с ${this.startCarrier}`;
+     }
+
+     salaryOfAllTime(){
+
+         const sumSalaryInEachCompany = this.previousCompany.map((elem )=>{
+
+             const  msToMonths = 2629800000;
+             const first = new Date(elem.end - elem.start ).getTime();
+             return  Math.round(first / msToMonths) * elem.salaryPerMonth ;
+
+
+         });
+         return  sumSalaryInEachCompany.reduce((acc , sum) =>  acc + sum, 0)
+     }
+
+     expAtPreviousCompany (company) {
+       return   this.previousCompany.filter(ele => ele.companyName === company);
+     }
+
+     addPreviousCompany(start = new Date(), end = new Date(), salaryPerMonth  = Number, position = toString(), companyName = toString()){
+         const newCompany ={
+             start,
+             end,
+             salaryPerMonth,
+             position,
+             companyName,
+         };
+         this.previousCompany.push(newCompany)
      }
 }
 
@@ -85,3 +133,82 @@ class FrontEndDevoloper extends AbstractHuman{
 // если больше недели - показать количество недель дней и часов
 // если больше месяца - показать количество месяцев недель дней и часов
 // если больше года - показать количество лет месяцев недель дней и часов
+
+class Worker extends AbstractHuman {
+    constructor(buildingLocation = '', tools =[], speedWork = Number ) {
+        super();
+        this.buildingLocation = buildingLocation;
+        this.tools = tools;
+        this.speedWork = speedWork; // minute
+
+    }
+
+
+    houseBuild ( squareMeter ) {
+
+        const squareMetersToMinutes = squareMeter * this.speedWork;// all minutes
+        const minToHours = 60;
+        const minToHoursAll = Math.round (squareMetersToMinutes / minToHours);//all minutes -> hours
+        const hourToDay = 24;
+        const hourToWeek = 168;
+        const hourToMonths = 730.5;
+        const hourToYears = 8766;
+        console.log(minToHoursAll, 'all hours');
+        if (minToHoursAll >= hourToYears){
+
+            let year =  (minToHoursAll/hourToYears)
+            let ryear =  Math.floor(year)
+            let months = (year - ryear) * 12;
+            let rmonths = Math.floor(months)
+            let week = (months - rmonths) * 4;
+            let rweek = Math.floor(week);
+            let days = (week - rweek) * 7;
+            let rdays = Math.floor(days);
+            let hours = (days - rdays) * 24;
+            let rhous = Math.floor(hours)
+
+            return `Постройка дома займет ${ryear} год/а ${rmonths} месяц/а ${rweek} неделя/и ${rdays} дня/й ${rhous} часа/ов`
+        }else if (minToHoursAll >= hourToMonths){
+
+            let months = minToHoursAll / hourToMonths;
+            let rmonths = Math.floor(months);
+            let week = (months - rmonths) * 4;
+            let rweek = Math.floor(week);
+            let days = (week - rweek) * 7;
+            let rdays = Math.floor(days);
+            let hours = (days - rdays) * 24;
+            let rhous = Math.floor(hours)
+
+            return `Постройка дома займет ${rmonths} месяц/а ${rweek} неделю/и ${rdays} дня/й ${rhous} часа/ов`
+        } else if (minToHoursAll >= hourToWeek){
+
+            let week = minToHoursAll / hourToWeek;
+            let rweek = Math.floor(week);
+            let days = (week - rweek) * 7;
+            let rdays = Math.floor(days);
+            let hours = (days - rdays) * 24;
+            let rhous = Math.floor(hours)
+
+            return `Постройка дома займет ${rweek} неделю/и ${rdays} дня/й ${rhous} часа/ов`
+        }else if (minToHoursAll >= hourToDay){
+
+            let days = minToHoursAll / hourToDay ;
+            let rdays = Math.floor(days);
+            let hours = (days - rdays) * 24;
+            let rhous = Math.floor(hours)
+
+            return `Постройка дома займет ${rdays} дня/й ${rhous} часа/ов`
+        }else if (minToHoursAll >= minToHours ){
+
+            let hours = minToHoursAll / minToHours;
+            let rhous = Math.floor(hours)
+
+            return `Постройка дома займет ${rhous} часа/ов`
+        }
+
+
+
+    }
+
+}
+
