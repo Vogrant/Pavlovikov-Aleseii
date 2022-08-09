@@ -163,8 +163,12 @@ visibility: visible;
 
 .cards-wrapper{
     display: flex;
+    background: black;
     flex-direction: row;
     flex-wrap: wrap;
+    background-size: contain;
+    min-height: 100vh;
+
 }
 
 .card {
@@ -174,11 +178,9 @@ visibility: visible;
     background: #3E3E3E;
     border-radius: 12px;
     margin: 43px;
+    transition: 3s;
 }
 
-.card:hover {
-
-}
 
 img {
     position: absolute;
@@ -189,7 +191,7 @@ img {
     border-radius: 10px;
     background: palegoldenrod;
     filter: grayscale(1);
-    transition: 1.5s;
+    transition: display 5s;
 }
 
 img:hover {
@@ -209,15 +211,13 @@ img:hover {
     font-size: 19px;
     line-height: 24px;
     letter-spacing: -0.04em;
-    text-shadow: 0px 2px 1px rgba(0, 0, 0, 0.25);
+    text-shadow: 2px 2px 2px black;
 }
 
 .description {
     position: absolute;
     left: 9.43%;
-    right: 31.13%;
-    top: 86.54%;
-    bottom: 6.41%;
+    top: 75%;
     color: #FFFFFF;
     font-family: 'Space Grotesk';
     font-style: normal;
@@ -227,6 +227,54 @@ img:hover {
     display: flex;
     align-items: flex-end;
     letter-spacing: -0.04em;
-    text-shadow: 0px 2px 1px rgba(0, 0, 0, 0.25);
+    text-shadow: 0 2px 1px rgba(0, 0, 0, 0.25);
 }
+
+.delete-btn {
+    position : relative;
+    top: 230px;
+    /*margin: 20px auto;*/
+    /*padding: 0 40px;*/
+    border: none;
+    font-size: 20px;
+    display: none;
+    border-radius: 50px;
+    width: 100%;
+    transition: transform 3s;
+}
+
+.delete-btn::before {
+    content: '';
+    transition: all 0.85s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    width: 33%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #00f0b5;
+    border-radius: 50px;
+    mix-blend-mode: difference;
+    background: white;
+    cursor: pointer;
+}
+
+.delete-btn:hover::before{
+    background:white;
+    width: 100%;
+    /*transition: transform 3s;*/
+}
+
+
+.delete-btn .btn-text{
+    color: #00f0b5;
+    mix-blend-mode: difference;
+    cursor: pointer;
+}
+
+.card:hover .delete-btn{
+    display: block;
+    transition:  3s;
+}
+
+
 
